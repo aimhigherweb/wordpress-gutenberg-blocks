@@ -6,12 +6,27 @@ import { Button, PanelBody, IconButton, TextControl, SelectControl } from '@word
 const Faq = () => {
 	registerBlockType('aimhigher/faq', {
 		title: 'FAQs',
-		icon: 'groups',
+		icon: 'format-chat',
 		category: 'common',
 		attributes: {
 			faqs: {
 				type: 'array',
-				default: []
+				source: 'query',
+				default: [],
+				selector: '.faqs details',
+				query: {
+					question: {
+						type: 'string',
+						selector: 'summary',
+						source: 'text'
+					},
+					answer: {
+						type: 'string',
+						selector: '.answer',
+						source: 'html',
+						multiline: 'p'
+					}
+				}
 			}
 		},
 		edit(props) {
@@ -93,12 +108,11 @@ const Faq = () => {
 			return (
 				<ul className="faqs">
 					{props.attributes.faqs.map((faq, index) => {
-						console.log(faq.answer)
 						return (
 							<li key={index}>
 								<details>
 									<summary>{faq.question}</summary>
-									<RichText.Content tagName="div" value={faq.answer}/>
+									<RichText.Content tagName="div" className="answer" value={faq.answer}/>
 								</details>
 							</li>
 						)

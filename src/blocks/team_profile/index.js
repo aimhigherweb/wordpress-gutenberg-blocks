@@ -1,6 +1,6 @@
 import { registerBlockType } from '@wordpress/blocks';
-import { RichText, MediaUpload, InspectorControls, BlockControls } from '@wordpress/block-editor';
-import { Button, PanelBody, IconButton, TextControl, SelectControl } from '@wordpress/components';
+import { MediaUpload } from '@wordpress/block-editor';
+import { Button, IconButton, TextControl } from '@wordpress/components';
 
 
 const teamProfile = () => {
@@ -45,7 +45,12 @@ const teamProfile = () => {
 			profileChange = (profile, index) => {
 				const teamMembers = [...props.attributes.teamMembers]
 
-				teamMembers[index].profile = profile.url
+				if(profile.sizes) {
+					teamMembers[index].profile = profile.sizes.thumbnail
+				}
+				else {
+					teamMembers[index].profile = profile.url
+				}
 
 				props.setAttributes({teamMembers})
 			}
