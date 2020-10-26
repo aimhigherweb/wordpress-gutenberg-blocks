@@ -77,8 +77,6 @@ const Banner = () => {
 				styles = {'--bannerImage': `url(${banner})` }
 			}
 
-			console.log(props.attributes)
-
 			return (
 				<div className="banner" style={styles}>
 					{props.attributes.text && <blockquote>{props.attributes.text}</blockquote>}
